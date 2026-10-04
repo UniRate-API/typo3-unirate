@@ -1,0 +1,33 @@
+name: Publish to TER
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: curl, json, intl, mbstring, zip
+          tools: composer:v2
+      - name: Install tailor
+        run: composer global require typo3/tailor --no-interaction --no-progress
+      - name: Resolve version from tag
+        run: echo "TER_VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
+      - name: Register extension key (idempotent)
+        env:
+          TYPO3_API_TOKEN: ${{ secrets.TYPO3_API_TOKEN }}
+        run: php "$(composer global config home)/vendor/bin/tailor" ter:register unirate || true
+      - name: Publish to TER
+        env:
+          TYPO3_API_TOKEN: ${{ secrets.TYPO3_API_TOKEN }}
+        run: php "$(composer global config home)/vendor/bin/tailor" ter:publish --comment "Release ${{ github.ref_name }}" "$TER_VERSION"
