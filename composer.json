@@ -1,0 +1,50 @@
+{
+    "name": "unirate/typo3-unirate",
+    "type": "typo3-cms-extension",
+    "description": "Live currency exchange rates, conversion, currency lists, and VAT rates for TYPO3 via the UniRate API. Zero third-party runtime dependencies.",
+    "keywords": ["unirate", "exchange-rates", "currency", "forex", "vat", "fintech", "typo3", "typo3-cms-extension"],
+    "homepage": "https://github.com/UniRate-API/typo3-unirate",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Unirate Team",
+            "email": "199503049+rob-browncc@users.noreply.github.com",
+            "homepage": "https://unirateapi.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/UniRate-API/typo3-unirate/issues",
+        "source": "https://github.com/UniRate-API/typo3-unirate"
+    },
+    "require": {
+        "php": "^8.2 || ^8.3 || ^8.4",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "typo3/cms-core": "^12.4 || ^13.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5 || ^11.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "UniRate\\Typo3\\": "Classes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "UniRate\\Typo3\\Tests\\": "Tests/"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "unirate"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "typo3/cms-composer-installers": true,
+            "typo3/class-alias-loader": true
+        }
+    }
+}

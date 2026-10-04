@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.2', '8.3', '8.4']
+    name: PHP ${{ matrix.php }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, json, mbstring, intl
+          coverage: none
+          tools: composer:v2
+      - name: Validate composer.json
+        run: composer validate --strict --no-check-lock
+      - name: Lint PHP sources
+        run: find Classes Tests examples ext_localconf.php ext_emconf.php -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Install PHPUnit (hermetic, no framework)
+        run: composer --working-dir="${RUNNER_TEMP}/pu" require phpunit/phpunit:^11.5 --no-progress --no-interaction
+      - name: Run mock unit tests
+        run: "${RUNNER_TEMP}/pu/vendor/bin/phpunit --configuration phpunit.xml.dist --testsuite unit"

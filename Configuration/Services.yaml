@@ -1,0 +1,15 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  UniRate\Typo3\:
+    resource: '../Classes/*'
+    exclude:
+      - '../Classes/Service/UniRateClient.php'
+      - '../Classes/Service/UniRateException.php'
+
+  # Public so Fluid ViewHelpers can resolve it via GeneralUtility::makeInstance().
+  UniRate\Typo3\Service\UniRateService:
+    public: true

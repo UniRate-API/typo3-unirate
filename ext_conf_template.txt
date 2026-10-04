@@ -1,0 +1,11 @@
+# cat=basic/enable/10; type=string; label=API key: Your UniRate API key. Get a free one at https://unirateapi.com
+apiKey =
+
+# cat=basic/enable/20; type=string; label=API base URL: Override the UniRate API base URL (leave as default unless self-hosting a proxy)
+baseUrl = https://api.unirateapi.com
+
+# cat=advanced/enable/30; type=int+; label=Request timeout: HTTP request timeout in seconds
+timeout = 15
+
+# cat=advanced/enable/40; type=int+; label=Cache lifetime: How long (seconds) to cache API responses
+cacheLifetime = 3600
