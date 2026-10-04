@@ -38,7 +38,7 @@
     },
     "extra": {
         "typo3/cms": {
-            "extension-key": "unirate"
+            "extension-key": "unirate_currency"
         }
     },
     "config": {

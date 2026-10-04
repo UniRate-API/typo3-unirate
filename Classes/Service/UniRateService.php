@@ -35,7 +35,7 @@ final class UniRateService implements LoggerAwareInterface
         CacheManager $cacheManager
     ) {
         try {
-            $config = $extensionConfiguration->get('unirate');
+            $config = $extensionConfiguration->get('unirate_currency');
         } catch (\Throwable) {
             $config = [];
         }

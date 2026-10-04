@@ -26,7 +26,7 @@ jobs:
       - name: Register extension key (idempotent)
         env:
           TYPO3_API_TOKEN: ${{ secrets.TYPO3_API_TOKEN }}
-        run: php "$(composer global config home)/vendor/bin/tailor" ter:register unirate || true
+        run: php "$(composer global config home)/vendor/bin/tailor" ter:register unirate_currency || true
       - name: Publish to TER
         env:
           TYPO3_API_TOKEN: ${{ secrets.TYPO3_API_TOKEN }}
