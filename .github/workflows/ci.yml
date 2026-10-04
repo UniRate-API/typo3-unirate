@@ -28,6 +28,9 @@ jobs:
       - name: Lint PHP sources
         run: find Classes Tests examples ext_localconf.php ext_emconf.php -name '*.php' -print0 | xargs -0 -n1 php -l
       - name: Install PHPUnit (hermetic, no framework)
-        run: composer --working-dir="${RUNNER_TEMP}/pu" require phpunit/phpunit:^11.5 --no-progress --no-interaction
+        run: |
+          mkdir -p "${RUNNER_TEMP}/pu"
+          printf '{}\n' > "${RUNNER_TEMP}/pu/composer.json"
+          composer --working-dir="${RUNNER_TEMP}/pu" require phpunit/phpunit:^11.5 --no-progress --no-interaction
       - name: Run mock unit tests
         run: "${RUNNER_TEMP}/pu/vendor/bin/phpunit --configuration phpunit.xml.dist --testsuite unit"
